@@ -3,33 +3,19 @@ function computerPlay() {
   const items = ["rock", "paper", "scissors"];
   return items[Math.floor(Math.random() * items.length)];
 }
-/*
-function userPlay() {
-  let userSelection = String(prompt("Que elegis?")).toLowerCase()
-
-  return userSelection
-}
-
-*/
-
-function userplay() {
-  const button = document.getElementById("button");
-  let isbutton
-  button.addEventListener("click", (event) => {
-    isbutton = event.target.nodeName === "BUTTON";
-    if (!isbutton) {
-      return;
-    }
-  });
-
-  const resultadosdiv= document.getElementsByClassName("resultado")
-  const newelement=document.createElement("div")
-  newelement.innerText =`el elemento elegido por el user es ${isbutton}`
-  resultadosdiv.append(newelement)
-}
-
 let scorehuman = 0;
 let scorecomputer = 0;
+let eleccionuser;
+function playerSelection() {
+  const botones = document.querySelectorAll("button");
+  botones.forEach((accion) => {
+    accion.addEventListener("click", (e) => {
+      eleccionuser = e.target.id;
+      //console.log(eleccionuser);
+    });
+  });
+}
+
 /////////////////////////////////////////////////////////////////////////
 function ganador(computerSelection, playerSelection) {
   let showWin = (resultado) => {
@@ -60,7 +46,7 @@ function ganador(computerSelection, playerSelection) {
 
 function game() {
   for (let index = 0; index < 5; index++) {
-    ganador(computerPlay(), userplay());
+    ganador(computerPlay(), playerSelection());
   }
   if (scorehuman > scorecomputer) {
     return console.log("EL HUMANO GANO ");
