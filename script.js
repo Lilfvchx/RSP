@@ -47,16 +47,13 @@ function logicalComparasion(computerEleccion, playerEleccion) {
 }
 function game() {
   for (let index = 0; index<5; index++) {
-    ganador(computerPlay(), userPlay());
+    gameUser()
   }
   if (scorehuman>scorecomputer) {
-    return console.log("EL HUMANO GANO ");
+    h1.textContent="El humano vencio"
   }
   if (scorecomputer>scorehuman){
-    return console.log("La maquina gano")
-  }
-  if (scorecomputer === scorehuman) {
-    return console.log("EMPATE   ");
+    h1.textContent="la computadora vencio"
   }
 }
 game();
