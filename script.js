@@ -1,53 +1,66 @@
+let playerScore = 0;
+let computerScore = 0;
+let roundWinner = "";
+const botones = document.querySelectorAll("button");
+const resultado = document.querySelector(".resultado");
+const h1 = document.createElement("h1");
+resultado.appendChild(h1);
+const eleccioncomputadora=document.createElement("p")
+resultado.appendChild(eleccioncomputadora)
+const bodyvar=document.body
+console.log(bodyvar)
+
 //Creo generador aleatorio de seleccion en un array para competir contra el user
 function computerPlay() {
-  const items = ["rock", "paper", "scissors"];
-  return items[Math.floor(Math.random() * items.length)];
+  const items = ["ROCK", "PAPER", "SCISSORS"];
+  let mathcomputer= items[Math.floor(Math.random() * items.length)];
+  eleccioncomputadora.textContent=`${mathcomputer} puto el que lee`
+  return mathcomputer
 }
-function userPlay() {
-  let userSelection = String(prompt("Que elegis?")).toLowerCase()
-
-  return userSelection
+//genero funcion para poder obtener la eleccion del user por el boton
+function gameUser() {
+  botones.forEach((accion) => {
+    accion.addEventListener("click", (e) => {
+      logicalComparasion(computerPlay(), e.target.id);
+      e.stopPropagation;
+    });
+  });
 }
-
-let scorehuman = 0;
-let scorecomputer = 0;
-/////////////////////////////////////////////////////////////////////////
-function ganador(computerSelection, playerSelection) {
-  let showWin = (resultado) => {console.log(`${resultado}!`)}
-  
-  if (playerSelection === computerSelection) {
-    showWin("empate")
-  }
-  
-  if (
-    (playerSelection === 'rock' && computerSelection === 'scissors') ||
-    (playerSelection === 'scissors' && computerSelection === 'paper') ||
-    (playerSelection === 'paper' && computerSelection === 'rock')
-  ) {
-     scorehuman=scorehuman+1
-     console.log("gano el humano")
+// genero logica para el luego y declaro ganadores por ronda
+function logicalComparasion(computerEleccion, playerEleccion) {
+  if (playerEleccion === computerEleccion) {
+    playerScore++;
+    computerScore++;
+    h1.textContent = "tie";
+    
   }
   if (
-    (computerSelection === 'rock' && playerSelection === 'scissors') ||
-    (computerSelection === 'scissors' && playerSelection === 'paper') ||
-    (computerSelection === 'paper' && playerSelection === 'rock')
+    (playerEleccion === "ROCK" && computerEleccion === "SCISSORS") ||
+    (playerEleccion === "SCISSORS" && computerEleccion === "PAPER") ||
+    (playerEleccion === "PAPER" && computerEleccion === "ROCK")
   ) {
-     scorecomputer=scorecomputer+1
-     console.log("gano la computadora")}
+    playerScore++;
+    h1.textContent = "player";
+  }
+  if (
+    (computerEleccion === "ROCK" && playerEleccion === "SCISSORS") ||
+    (computerEleccion === "SCISSORS" && playerEleccion === "PAPER") ||
+    (computerEleccion === "PAPER" && playerEleccion === "ROCK")
+  ) {
+    computerScore++;
+    h1.textContent = "computer";
+    console.log("computer");
+  }
 }
-
 function game() {
-  for (let index = 0; index<5; index++) {
-    ganador(computerPlay(), userPlay());
+  for (let index = 0; index < 5; index++) {
+    gameUser();
   }
-  if (scorehuman>scorecomputer) {
-    return console.log("EL HUMANO GANO ");
+  if (playerScore > computerScore) {
+    h1.textContent = "El humano vencio";
   }
-  if (scorecomputer>scorehuman){
-    return console.log("La maquina gano")
-  }
-  if (scorecomputer === scorehuman) {
-    return console.log("EMPATE   ");
+  if (computerScore > playerScore) {
+    h1.textContent = "la computadora vencio";
   }
 }
 game();

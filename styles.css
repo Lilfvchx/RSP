@@ -1,0 +1,16 @@
+body{
+    background-color: dimgray;
+}
+button{
+    display: flexbox;
+    border: 10px solid black;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: fit-content;
+    height: 500px;
+    margin: 0px;
+}
+div {
+    padding: 20px;
+    border: 1px solid black;
+  }
